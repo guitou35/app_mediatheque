@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>La médiathèque de la Chapelle-Curreaux</h1>
+
+        <img src="{{ asset('images/image_accueil.jpeg') }}" alt="image accueil" style="max-width: 50vw " class="m-auto">
+
+        <p class="text-center m-auto"> Bienvenue sur l'application de la médiathèque de la Chapelle-Curreaux.
+        Suite au mesure gouvernante par rapport au Covid-19, nous avons décidé de mettre en place un click end collect à nos adhérents
+            pour leur permettre de continuer de lire des livres malgrès les conditions actuelles.
+            Je vous invite à ceux qui seraient intéréssés de s'inscrire pour devenir adhérent et pouvoir commencer à emprunter des livres ou directement à accéder à l'application
+            pour les personnes déjà inscrites.
+            l'équipe de la médiathèque de la Chapelle-Curreux est ravis de pouvoir continuer à vous faire profiter de nos différents livres et nous vous souhaitant une bonne journée.
+        </p>
+        <a href="{{ path('user_home') }}">Connexion</a>
+        <a href="{{ path('inscription') }}">inscription</a>
+    </div>
+
+{% endblock %}

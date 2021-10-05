@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>La médiathèque de la Chapelle-Curreaux</h1>
+
+        {% for personne in personnes %}
+            <p>
+            {{ personne.nom }} et {{ personne.prenom }}
+            {{ personne.adresse.rue }}
+            {{ personne.email }}
+            <a href="{{ path('admin_validate_new_user',{'id':personne.id}) }}" class="btn btn-primary">Valider</a>
+            </p>
+        {% endfor %}
+
+        <a href="{{ path('inscription') }}">inscription</a>
+    </div>
+
+{% endblock %}
