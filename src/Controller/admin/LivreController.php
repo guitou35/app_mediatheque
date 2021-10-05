@@ -2,6 +2,8 @@
 
 namespace App\Controller\admin;
 
+use App\Entity\Auteur;
+use App\Entity\Genre;
 use App\Entity\Livre;
 use App\Form\LivreType;
 use App\Repository\LivreRepository;
@@ -20,7 +22,7 @@ class LivreController extends AbstractController
      */
     public function index(LivreRepository $livreRepository): Response
     {
-        return $this->render('livre/index.html.twig', [
+        return $this->render('admin/livre/index.html.twig', [
             'livres' => $livreRepository->findAll(),
         ]);
     }
@@ -42,7 +44,7 @@ class LivreController extends AbstractController
             return $this->redirectToRoute('livre_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('livre/new.html.twig', [
+        return $this->renderForm('admin/livre/new.html.twig', [
             'livre' => $livre,
             'form' => $form,
         ]);
@@ -62,7 +64,7 @@ class LivreController extends AbstractController
             return $this->redirectToRoute('livre_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('livre/edit.html.twig', [
+        return $this->renderForm('admin/livre/edit.html.twig', [
             'livre' => $livre,
             'form' => $form,
         ]);

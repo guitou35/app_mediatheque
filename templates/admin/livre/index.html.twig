@@ -27,8 +27,8 @@
                 <td>{{ livre.description }}</td>
                 <td>{{ livre.statut }}</td>
                 <td>
-                    <a href="{{ path('livre_show', {'id': livre.id}) }}">show</a>
                     <a href="{{ path('livre_edit', {'id': livre.id}) }}">edit</a>
+                    {{ include('admin/livre/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

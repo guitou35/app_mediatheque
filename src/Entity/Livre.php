@@ -44,21 +44,17 @@ class Livre
      */
     private $statut;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Genre::class, mappedBy="livres")
-     */
-    private $genres;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Auteur::class, inversedBy="livres")
+     * @ORM\ManyToOne(targetEntity=Auteur::class, inversedBy="livres", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $auteur;
 
-    public function __construct()
-    {
-        $this->genres = new ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity=Genre::class, inversedBy="rien")
+     */
+    private $genre;
 
     public function getId(): ?int
     {
@@ -125,33 +121,6 @@ class Livre
         return $this;
     }
 
-    /**
-     * @return Collection|Genre[]
-     */
-    public function getGenres(): Collection
-    {
-        return $this->genres;
-    }
-
-    public function addGenre(Genre $genre): self
-    {
-        if (!$this->genres->contains($genre)) {
-            $this->genres[] = $genre;
-            $genre->addLivre($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGenre(Genre $genre): self
-    {
-        if ($this->genres->removeElement($genre)) {
-            $genre->removeLivre($this);
-        }
-
-        return $this;
-    }
-
     public function getAuteur(): ?Auteur
     {
         return $this->auteur;
@@ -160,6 +129,18 @@ class Livre
     public function setAuteur(?Auteur $auteur): self
     {
         $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    public function getGenre(): ?Genre
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(?Genre $genre): self
+    {
+        $this->genre = $genre;
 
         return $this;
     }
