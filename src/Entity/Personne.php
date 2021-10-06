@@ -6,6 +6,7 @@ use App\Repository\PersonneRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -22,6 +23,7 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     *
      */
     private $email;
 
@@ -34,21 +36,35 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(min=8,minMessage = "le password doit contenir au moins une majuscule et un chiffre ainsi que 8 caractères")
+     * @Assert\Regex(
+     *      pattern = "/^[a-zA-Z0-9]+$/i",
+     *      htmlPattern = "^[a-zA-Z0-9]+$",
+     *      message ="le password doit contenir au moins une majuscule et un chiffre ainsi que 8 caractères"
+     *      )
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(min=3)
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(min=3)
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Date(message = "Ceci n'est pas une date valide")
+     *
      */
     private $dateNaissance;
 
@@ -60,6 +76,7 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\ManyToOne(targetEntity=Adresse::class, inversedBy="personnes",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
      */
     private $adresse;
 
