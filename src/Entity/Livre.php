@@ -45,8 +45,9 @@ class Livre
      * @Vich\UploadableField(mapping="images_livres", fileNameProperty="filename")
      * @Assert\File(
      *     maxSize = "8M",
-     *     mimeTypes ={"image/png","image/svg+xml", "image/jpeg","image/gif"}
-     *     mimeTypesMessage = "Enregistrez une image valide (jpg, jpeg, png, gif)"
+     *     mimeTypes ={"image/png","image/svg+xml", "image/jpeg","image/gif"},
+     *     mimeTypesMessage = "Enregistrez une image valide jpg, jpeg, png, gif"
+     * )
      * @var File|null
      */
     private $imageFile;
