@@ -1,0 +1,40 @@
+{# tailwindcss Sliding pagination control implementation #}
+{% if pageCount > 1 %}
+    <div class="inline-block ">
+        <div class="flex items-baseline flex-row  w-auto ">
+            {% if first is defined and current != first %}
+                <a style="text-decoration: none; color: grey" href="{{ path(route, query|merge({(pageParameterName): first})) }}">
+                    <span class="bg-purple-300 px-2 py-1 text-lg rounded-full font-bold">&lt;&lt;</span>
+                </a>
+            {% endif %}
+
+            {% if previous is defined %}
+                <a rel="prev" style="text-decoration: none; color: grey" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">
+                    <span class="bg-purple-300 rounded-full px-2 text-lg py-1 ">&lt;</span>
+                </a>
+            {% endif %}
+
+            {% for page in pagesInRange %}
+                {% if page != current %}
+                    <a style="text-decoration: none; color: grey" href="{{ path(route, query|merge({(pageParameterName): page})) }}">
+                        <span class="bg-purple-300 rounded-full px-2 py-1 text-lg  ">{{ page }}</span>
+                    </a>
+                {% else %}
+                    <span class="bg-theme-purple px-2 py-1 rounded-full text-lg font-bold">{{ page }}</span>
+                {% endif %}
+            {% endfor %}
+
+            {% if next is defined %}
+                <a rel="next" style="text-decoration: none; color: grey" href="{{ path(route, query|merge({(pageParameterName): next})) }}">
+                    <span class="bg-purple-300 px-2 py-1 text-lg rounded-full ">&gt; </span></a>
+            {% endif %}
+
+            {% if last is defined and current != last %}
+                <a style="text-decoration: none; color: grey" href="{{ path(route, query|merge({(pageParameterName): last})) }}">
+                    <span class="bg-purple-300 px-2 py-1 text-lg rounded-full ">
+                        &gt;&gt; </span>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

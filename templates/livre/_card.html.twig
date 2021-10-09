@@ -1,0 +1,38 @@
+<div class="m-6 border rounded-md md:flex flex-col shadow-xl bg-white">
+    {% if livre.filename %}
+        <div class="size-img"><img class="rounded-t-md size-img" src="/images/livres/{{ livre.filename }}"
+                                   alt="livre images"></div>
+    {% else %}
+        <div ><img class=" size-img rounded-t-md" src="/images/livres/empty_livre.jpg" alt="livre images">
+        </div>
+    {% endif %}
+    <div class="text-theme-blue text-lg font-semibold mx-auto px-2">{{ livre.titre }} </div>
+    <div class="text-theme-blue italic mx-auto p-2">{{ livre.auteur.nom }}</div>
+    <div class="text-xs font-extralight p-2"> {{ livre.dateParution }}</div>
+    <div class="px-2">
+        <hr>
+        <p> {{ livre.description }}
+        </p>
+        <div> <span class="rounded-full text-xs font-extralight bg-theme-blue px-2">{{ livre.genre.nom }}</span></div>
+    </div>
+    {% if livre.statut == 'dispo' %}
+        <div class="flex justify-around content-center m-3">
+            <div>
+                <svg class="h-4 w-4 text-green-500">
+                    <circle cx="6" cy="6" r="6" fill="currentColor" />
+                </svg>
+            </div>
+            <div>
+                <a class="border rounded-xl bg-theme-purple text-white mb-2 mx-auto hover:text-white hover:bg-purple-900 p-2">
+                    Réserver
+                </a>
+            </div>
+        </div>
+    {% else %}
+        <div class="mx-auto">
+            <svg class="h-4 w-4 text-red-500">
+                <circle cx="6" cy="6" r="6" fill="currentColor" />
+            </svg>
+        </div>
+    {% endif %}
+</div>

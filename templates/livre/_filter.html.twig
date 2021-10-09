@@ -1,0 +1,14 @@
+{{ form_start(form, {attr: {class:'filter'}}) }}
+{{ form_row(form.q) }}
+
+<h4>Genres</h4>
+{{ form_row(form.genres) }}
+<h4>Disponible</h4>
+{{ form_row(form.status) }}
+
+<button type="submit"
+        class="border rounded-xl bg-theme-purple text-white m-2 mx-auto hover:text-white hover:bg-purple-900 p-2">
+    filtrer
+</button>
+
+{{ form_end(form) }}
