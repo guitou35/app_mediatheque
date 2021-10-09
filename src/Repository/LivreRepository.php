@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Livre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @method Livre|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,9 +17,50 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class LivreRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private PaginatorInterface $paginator;
+
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, Livre::class);
+        $this->paginator = $paginator;
+    }
+
+    /**
+     * @param SearchData $data
+     * @return PaginationInterface
+     */
+    public function searchLivre(SearchData $data) : PaginationInterface
+    {
+        $query = $this
+            ->createQueryBuilder('l')
+            ->select('l','g','a')
+            ->join('l.genre', 'g')
+            ->join('l.auteur','a');
+
+        if(!empty($data->q)){
+            $query = $query
+                ->andWhere('l.titre LIKE :q')
+                ->setParameter('q',"%{$data->q}%");
+        }
+
+        if($data->status){
+            $query = $query
+                ->andWhere('l.statut = :status')
+                ->setParameter('status','dispo');
+        }
+
+        if(!empty($data->genres)){
+            $query= $query
+                ->andWhere('g.id IN (:genres)')
+                ->setParameter('genres',$data->genres);
+        }
+        $query = $query->getQuery();
+
+        return $this->paginator->paginate(
+            $query,
+            $data->page,
+            2
+        );
     }
 
     // /**

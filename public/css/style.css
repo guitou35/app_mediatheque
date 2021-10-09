@@ -1,9 +1,55 @@
-.body{
-    font-family: 'Nunito', sans-serif;
+body{
+    font-family: 'Nunito', sans-serif !important;
+    background-color: #F1F3F4 !important;
 }
 
-.bg-color-purple{
+.bg-theme-purple{
     background-color: #512B58;
-    color: #dfdfdf;
+    color: #F1F3F4;
+}
+
+
+.bg-theme-blue{
+    background-color: #2A7886;
+    color: #F1F3F4;
+}
+
+.bg-theme-blue-clair{
+    background-color: #79BAC1;
+    color: #F1F3F4;
+}
+
+.bg-theme-grey{
+    background-color: #F1F3F4;
+    color: #2A7886;
+}
+
+.text-theme-purple{
+    color: #512B58;
+}
+
+.text-theme-blue{
+color: #2A7886;
+}
+
+.text-theme-blue-clair{
+    color: #79BAC1;
+}
+
+.text-theme-grey{
+    color: #F1F3F4
+}
+
+.size-img{
+    width: 250px;
+    height: 210px;
+}
+
+/* form styles */
+
+.filter{
+    display: block;
+    position: sticky;
+    top: 25px;
 }
 
