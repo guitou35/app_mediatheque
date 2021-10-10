@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <h1>La médiathèque de la Chapelle-Curreaux</h1>
+        <h1 class="text-theme-blue font-bold text-center">La médiathèque de la Chapelle-Curreaux</h1>
 
         <img src="{{ asset('images/image_accueil.jpeg') }}" alt="image accueil" style="max-width: 50vw " class="m-auto">
 
@@ -15,8 +15,10 @@
             pour les personnes déjà inscrites.
             l'équipe de la médiathèque de la Chapelle-Curreux est ravis de pouvoir continuer à vous faire profiter de nos différents livres et nous vous souhaitant une bonne journée.
         </p>
-        <a href="{{ path('user_home') }}">Connexion</a>
-        <a href="{{ path('inscription') }}">inscription</a>
-    </div>
+        <div class="flex flex-row ">
+        <a class="style-none rounded-xl bg-theme-purple text-white mb-2 mx-auto hover:text-white hover:bg-purple-900 p-2" href="{{ path('user_home') }}">Connexion</a>
+        <a class="style-none rounded-xl bg-theme-purple text-white mb-2 mx-auto hover:text-white hover:bg-purple-900 p-2" href="{{ path('inscription') }}">inscription</a>
+        </div>
+        </div>
 
 {% endblock %}

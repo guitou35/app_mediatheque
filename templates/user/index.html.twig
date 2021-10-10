@@ -3,22 +3,20 @@
 {% block title %}livres{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container  ">
         <h1 class="mx-auto text-center text-4xl">Liste des livres de la bibliothèque</h1>
-        <div class="md:flex flex-row">
+        <div class="md:flex flex-row js-filter">
             <div>
                 {% include 'livre/_filter.html.twig' with {form: form} only %}
             </div>
-        <div class="md:flex md:flex-row flex-wrap justify-start">
-            {% for livre in livres %}
-                {% include'livre/_card.html.twig' with {livre: livre} only  %}
-            {% endfor %}
-
-        </div>
-
-    </div>
-        <div class="flex justify-center">
-            {{ knp_pagination_render(livres) }}
+            <div>
+                <div class="md:flex md:flex-row flex-wrap justify-start js-filter-content">
+                    {% include 'livre/_livres.html.twig' with {livres: livres} only %}
+                </div>
+                <div class="flex justify-center js-filter-pagination">
+                    {{ knp_pagination_render(livres) }}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

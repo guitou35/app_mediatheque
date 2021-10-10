@@ -2,14 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\Adresse;
 use App\Entity\Personne;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -36,7 +32,7 @@ class PersonneType extends AbstractType
             ->add('prenom', TextType::class, [
                 'required' => true,
             ])
-            ->add('dateNaissance', TextType::class, [
+            ->add('dateNaissance', BirthdayType::class, [
                 'required' => true,
             ])
             ->add('adresse',AdresseType::class)

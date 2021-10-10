@@ -3,7 +3,21 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <div class="container">
-        {{ form(formPersonne) }}
+    <div class="size-form mx-auto p-3">
+        {{ form_start(form) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.password) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.prenom) }}
+        {{ form_row(form.dateNaissance) }}
+        {{ form_row(form.adresse.rue) }}
+        <div class="flex justify-between ">
+            {{ form_row(form.adresse.codePostal) }}
+            {{ form_row(form.adresse.ville) }}
+        </div>
+        {{ form_row(form.sauvegarder, {'attr' : { 'class' : 'bg-theme-blue mx-auto'}, row_class: 'mx-auto'}) }}
+        {{ form_end(form) }}
+
+
     </div>
 {% endblock %}

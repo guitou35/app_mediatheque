@@ -19,7 +19,7 @@ class SearchData
     /**
      * @var Genre[]
      */
-    public $genres = [];
+    public $genres = [] ;
 
     /**
      * @var boolean

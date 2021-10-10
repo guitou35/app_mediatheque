@@ -1,0 +1,3 @@
+{% for livre in livres %}
+    {% include'livre/_card.html.twig' with {livre: livre} only  %}
+{% endfor %}

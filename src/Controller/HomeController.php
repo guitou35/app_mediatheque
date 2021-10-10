@@ -49,7 +49,7 @@ class HomeController extends AbstractController
             }
 
         return $this->render('home/inscription.html.twig',[
-            'formPersonne' => $formPersonne->createView(),
+            'form' => $formPersonne->createView(),
         ]);
     }
 }

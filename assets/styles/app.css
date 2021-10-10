@@ -1,6 +1,17 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
 body{
     font-family: 'Nunito', sans-serif !important;
     background-color: #F1F3F4 !important;
+}
+
+.all-page{
+    width: 90vw;
+    height: 90vh;
 }
 
 .bg-theme-purple{
@@ -29,7 +40,7 @@ body{
 }
 
 .text-theme-blue{
-color: #2A7886;
+    color: #2A7886;
 }
 
 .text-theme-blue-clair{
@@ -56,4 +67,16 @@ color: #2A7886;
 .style-none{
     text-decoration: none;
 }
+
+.size-form{
+        width : 45vw;
+}
+
+@layer components {
+    .bttn{
+        @apply rounded-xl bg-theme-purple text-white m-4 mx-auto hover:text-white hover:bg-purple-900 p-2;
+    }
+}
+
+
 

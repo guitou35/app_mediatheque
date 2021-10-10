@@ -6,6 +6,7 @@ use App\Data\SearchData;
 use App\Form\SearchType;
 use App\Repository\LivreRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,6 +28,14 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         $livres = $livreRepository->searchLivre($data);
+
+        if($request->get('ajax')){
+            return  new JsonResponse([
+                'content' => $this->renderView('livre/_livres.html.twig',['livres' => $livres]),
+                'pagination' => $this->renderView('livre/_pagination.html.twig',['livres' => $livres]),
+                'pages'=> ceil($livres->getTotalItemCount() / $livres->getItemNumberPerPage()),
+            ]);
+        }
 
         return $this->render('user/index.html.twig', [
             'controller_name' => 'UserController',
