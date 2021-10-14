@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation{% endblock %}
+
+{% block body %}
+    <div class="container  ">
+        <h1 class="mx-auto text-center text-4xl p-4 text-theme-blue font-semibold">Liste de mes réservations</h1>
+        {% for message in app.flashes('success') %}
+                {% include 'components/_alert_success.html.twig'%}
+        {% endfor %}
+        {% for message in app.flashes('notice') %}
+            {% include 'components/_alert_notice.html.twig'%}
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            {% include 'components/_alert_error.html.twig'%}
+        {% endfor %}
+
+        {% if reservations %}
+            <div class="flex md:flex-col text-left grid">
+                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50 text-theme-blue">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-center  font-medium   tracking-wider">
+                                        Nom du livre
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-center  font-medium   tracking-wider">
+                                        Date de la réservation
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-center font-medium  tracking-wider">
+                                       Statut
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-center font-medium  tracking-wider">
+                                        Retourner avant
+                                    </th>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                    <th scope="col" class="px-6 py-3 text-center font-medium  tracking-wider">
+                                        Management
+                                    </th>
+                                    {% endif %}
+                                </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                {% for reservation in reservations %}
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                {% if reservation.livre.filename %}
+                                                <img class="h-10 w-10 rounded-xl"
+                                                     src="/images/livres/{{ livre.filename }}">
+                                                {% else %}
+                                                    <img class="h-10 w-10 rounded-xl"
+                                                         src="/images/livres/empty_livre.jpg" alt="">
+                                                {% endif %}
+                                            </div>
+                                            <div class="ml-4 text-center">
+                                                <div class="text-sm font-medium text-gray-900 ">
+                                                    {{ reservation.livre.titre }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900 text-center">{{ reservation.DateReservation|date("d/m/Y")  }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                                        {% if reservation.statut == 'attente' %}
+                                            <span class="rounded-full text-xs font-extralight bg-theme-purple px-2">
+                  Attente de retrait
+                </span>
+                                        {% elseif reservation.statut == 'en-cours' %}
+                                            <span class="rounded-full text-xs font-extralight bg-theme-blue-clair px-2">
+                  En cours
+                </span>
+                                            {% else %}
+                                                <span class="rounded-full text-xs font-extralight bg-theme-blue px-2">
+                  Fini
+                </span>
+                                                {% endif %}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                        {% if reservation.DateRetour %}
+                                        {{ reservation.DateRetour | date("d/m/Y")  }}
+                                        {% endif %}
+                                    </td>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        {% if reservation.statut == 'attente' %}
+                                        <a href="{{ path('admin_validate_emprunt', {'id' : reservation.id}) }}" class="bttn">Valider l'emprunt</a>
+                                        {% elseif reservation.statut == 'en-cours' %}
+                                            <a href="{{ path('admin_validate_reception', {'id' : reservation.id}) }}" class="bttn">Valider reception</a>
+                                        {% endif %}
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                                    {% endfor %}
+                                <!-- More people... -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% else %}
+            <div > Aucun résultat ne correspond à votre recherche</div>
+        {% endif %}
+    </div>
+{% endblock %}

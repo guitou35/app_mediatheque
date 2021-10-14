@@ -34,6 +34,7 @@ class PersonneType extends AbstractType
             ])
             ->add('dateNaissance', BirthdayType::class, [
                 'required' => true,
+                'format' => '>y-M-d'
             ])
             ->add('adresse',AdresseType::class)
         ->add('sauvegarder',SubmitType::class,[
