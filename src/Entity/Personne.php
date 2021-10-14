@@ -63,14 +63,6 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\Date(message = "Ceci n'est pas une date valide")
-     *
-     */
-    private $dateNaissance;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $compteActived;
@@ -86,6 +78,13 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="personne")
      */
     private $reservations;
+
+    /**
+     * @ORM\Column(type="date")
+     * @Assert\NotBlank
+     *
+     */
+    private $dateNaissance;
 
     public function __construct()
     {
@@ -205,17 +204,6 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getDateNaissance(): ?string
-    {
-        return $this->dateNaissance;
-    }
-
-    public function setDateNaissance(string $dateNaissance): self
-    {
-        $this->dateNaissance = $dateNaissance;
-
-        return $this;
-    }
 
     public function getCompteActived(): ?bool
     {
@@ -267,6 +255,18 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
                 $reservation->setPersonne(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDateNaissance(): ?\DateTimeInterface
+    {
+        return $this->dateNaissance;
+    }
+
+    public function setDateNaissance(\DateTimeInterface $dateNaissance): self
+    {
+        $this->dateNaissance = $dateNaissance;
 
         return $this;
     }

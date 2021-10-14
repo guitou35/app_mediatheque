@@ -19,6 +19,61 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
+    public function findReservations($id)
+    {
+        $query = $this
+            ->createQueryBuilder('r')
+            ->select('r','l','p')
+            ->join('r.livre', 'l')
+            ->join('r.personne','p')
+            ->andWhere('p.id = :id');
+        $query->setParameter('id',$id);
+
+        return $query->getQuery()->getResult();
+    }
+
+    public function findEmprunt()
+    {
+        $query = $this
+            ->createQueryBuilder('r')
+            ->select('r','l','p')
+            ->join('r.livre', 'l')
+            ->join('r.personne','p')
+            ->andWhere("r.statut = 'en-cours' ")
+            ->orderBy('r.DateRetour','DESC');
+
+        return $query->getQuery()->getResult();
+    }
+    public function findEmpruntRetard(\DateTime $dateTime)
+    {
+        $query = $this
+            ->createQueryBuilder('r')
+            ->select('r','l','p')
+            ->join('r.livre', 'l')
+            ->join('r.personne','p')
+            ->andWhere("r.statut = 'en-cours' ")
+            ->andWhere("r.DateRetour < :date")
+            ->setParameter('date', $dateTime);
+
+        return $query->getQuery()->getResult();
+    }
+
+    public function findReservationAttente()
+    {
+        $query = $this
+            ->createQueryBuilder('r')
+            ->select('r','l','p')
+            ->join('r.livre', 'l')
+            ->join('r.personne','p')
+            ->andWhere("r.statut = 'attente' ")
+            ->andWhere('DATE_DIFF(CURRENT_DATE(), r.DateRetour) < 3')
+        ;
+             //$query= $this->_em->createQuery('select r, l,DATE_DIFF(CURRENT_DATE(), r.DateRetour) as jour from d ')
+
+        return $query->getQuery()->getResult();
+    }
+
+
     // /**
     //  * @return Reservation[] Returns an array of Reservation objects
     //  */

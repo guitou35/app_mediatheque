@@ -3,24 +3,53 @@
 namespace App\Controller;
 
 use App\Data\SearchData;
+use App\Entity\Reservation;
 use App\Form\SearchType;
 use App\Repository\LivreRepository;
+use App\Repository\PersonneRepository;
+use App\Repository\ReservationRepository;
+use App\services\CheckReservationDateService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/user")
  */
 class UserController extends AbstractController
 {
+
+    /**
+     * @var Security
+     */
+    private $security;
+    /**
+     * @var LivreRepository
+     */
+    private $livreRepository;
+    /**
+     * @var CheckReservationDateService
+     */
+    private $checkReservationDateService;
+
+
+    public function __construct(Security $security, LivreRepository $livreRepository, CheckReservationDateService $checkReservationDateService)
+    {
+
+        $this->security = $security;
+        $this->livreRepository = $livreRepository;
+        $this->checkReservationDateService = $checkReservationDateService;
+    }
+
     /**
      * @Route("/", name="user_home")
      */
     public function index(LivreRepository $livreRepository, Request $request ): Response
     {
+        $this->checkReservationDateService->updateReservation();
         $data = new SearchData();
         $data->page = $request->get('page', 1);
         $form = $this->createForm(SearchType::class, $data);
@@ -41,6 +70,46 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
             'livres'=> $livres,
             'form'=> $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/reserver/{id}" , name="user_reserve")
+     */
+    public function reserver($id)
+    {
+        $user = $this->security->getUser();
+        $reservation = new Reservation();
+        $livre = $this->livreRepository->find($id);
+
+        $reservation->setLivre($livre);
+        $reservation->setDateReservation(new \DateTime('now'));
+        $reservation->setStatut('attente');
+        $reservation->setPersonne($user);
+
+        $livre->setStatut('nodispo');
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($reservation);
+        $em->flush();
+
+        return $this->redirectToRoute('user_get_reservations');
+    }
+
+    /**
+     * @return Response
+     * @Route("/reservations", name="user_get_reservations")
+     */
+    public function getReservation(ReservationRepository $reservationRepository)
+    {
+        if ($this->isGranted("ROLE_ADMIN")){
+            $reservations = $reservationRepository->findBy([],['DateRetour'=>'DESC']);
+        }else{
+            $reservations = $reservationRepository->findReservations($this->security->getUser()->getId());
+        }
+
+        return $this->render('user/reservation.html.twig',[
+            'reservations' => $reservations
         ]);
     }
 
