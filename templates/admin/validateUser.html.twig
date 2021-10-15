@@ -4,18 +4,12 @@
 
 {% block body %}
     <div class="container">
-        <h1>La médiathèque de la Chapelle-Curreaux</h1>
+        <h1 class="mx-auto text-center text-theme-blue font-semibold pt-4 text-4xl">Liste des nouvelles personnes inscrites</h1>
 
         {% for personne in personnes %}
-            <p>
-            {{ personne.nom }} et {{ personne.prenom }}
-            {{ personne.adresse.rue }}
-            {{ personne.email }}
-            <a href="{{ path('admin_validate_new_user',{'id':personne.id}) }}" class="btn btn-primary">Valider</a>
-            </p>
+            {% include 'components/_card_personne.html.twig' %}
         {% endfor %}
 
-        <a href="{{ path('inscription') }}">inscription</a>
     </div>
 
 {% endblock %}

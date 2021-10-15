@@ -1,0 +1,17 @@
+<div class="m-6 border rounded-md flex flex-col mx-auto shadow-xl bg-white card-person p-4" id="personne-{{ personne.id }}">
+    <div class="mx-auto"><img class="rounded-t-md" src="{{ asset('images/user.png') }}"
+                               alt="livre images"></div>
+    <div class="text-theme-blue text-lg font-semibold mx-auto px-2">{{ personne.nom }} - {{ personne.prenom }} </div>
+    <div class="text-theme-blue italic mx-auto p-2">{{ personne.email }}</div>
+    <div class="px-2">
+        <hr>
+        <div class="text-center p-2">
+
+            {{ personne.adresse.rue }}, <br>
+            {{ personne.adresse.codePostal }} {{ personne.adresse.ville }}
+        </div>
+        <div class="text-center p-2 ">
+            <a href="{{ path('admin_validate_new_user',{'id':personne.id}) }}" class="bttn style-none" >Valider</a>
+        </div>
+    </div>
+</div>

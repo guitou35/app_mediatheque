@@ -71,12 +71,29 @@ body{
 .size-form{
         width : 45vw;
 }
+.card-person{
+    max-width: 30vw;
+    min-height: 15vh;
+}
+
+.image-user{
+    height: 35px;
+
+}
 
 @layer components {
     .bttn{
-        @apply rounded-xl bg-theme-purple text-white m-4 mx-auto hover:text-white hover:bg-purple-900 p-2;
+        @apply rounded-xl bg-theme-purple text-white m-4 mx-auto hover:text-white hover:bg-purple-900 p-1 ;
     }
 }
 
+
+@media (max-width: 768px) {
+    .card-person{
+        max-width: 50vw;
+        min-height: 20vh;
+    }
+
+}
 
 
