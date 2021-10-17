@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Personne;
 use App\Entity\Reservation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -73,6 +74,20 @@ class ReservationRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function findEmpruntRetardPersonnee(Personne $personne)
+    {
+        $query = $this
+            ->createQueryBuilder('r')
+            ->select('r','l','p')
+            ->join('r.livre', 'l')
+            ->join('r.personne','p')
+            ->andWhere("r.statut = 'en-cours' ")
+            ->andWhere("r.DateRetour < CURRENT_DATE()")
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $personne->getId());
+
+        return $query->getQuery()->getResult();
+    }
 
     // /**
     //  * @return Reservation[] Returns an array of Reservation objects

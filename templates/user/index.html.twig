@@ -3,14 +3,14 @@
 {% block title %}livres{% endblock %}
 
 {% block body %}
-    <div class="container  ">
-        <h1 class="mx-auto text-center text-4xl">Liste des livres de la bibliothèque</h1>
+    <div class="container h-screen bg-gray-200 ">
+        <h1 class="text-theme-blue font-bold text-center text-5xl p-3">Liste des livres de la bibliothèque</h1>
         <div class="md:flex flex-row js-filter">
             <div>
                 {% include 'livre/_filter.html.twig' with {form: form} only %}
             </div>
             <div>
-                <div class="md:flex md:flex-row flex-wrap justify-start js-filter-content">
+                <div class="md:flex md:flex-row flex-wrap justify-center js-filter-content">
                     {% include 'livre/_livres.html.twig' with {livres: livres} only %}
                 </div>
                 <div class="flex justify-center js-filter-pagination">

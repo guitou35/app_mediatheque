@@ -128,7 +128,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/list/emprunt" , name="admin_list_emprunt")
      */
-    public function getListEmprunt(){
+    public function getListEmprunt()
+    {
        $reservations =  $this->reservationRepository->findEmprunt();
 
        $reservationsDepaser = $this->reservationRepository->findEmpruntRetard(new \DateTime('now'));
@@ -139,6 +140,14 @@ class AdminController extends AbstractController
        }
         return $this->render('admin/livre/emprunt.html.twig', [
             'reservations'=> $reservations
+        ]);
+    }
+
+    public function getReservations()
+    {
+
+        return $this->render('user/reservation.html.twig',[
+            'reservations' => $reservations
         ]);
     }
 

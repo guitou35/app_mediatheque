@@ -8,6 +8,9 @@ body{
     font-family: 'Nunito', sans-serif !important;
     background-color: #F1F3F4 !important;
 }
+a{
+    text-decoration: none !important;
+}
 
 .all-page{
     width: 90vw;
@@ -61,7 +64,7 @@ body{
 .filter{
     display: block;
     position: sticky;
-    top: 25px;
+    top: 60px;
 }
 
 .style-none{
@@ -81,10 +84,42 @@ body{
 
 }
 
+.height-full{
+    height: 80vh;
+}
+
+/*  Partie dropdown */
+.dropwrap {
+    position: relative;
+    display: inline-block;
+}
+
+.dropwrap-content {
+    display: none !important;
+    position: absolute;
+    background-color: #eceaea;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 10px 14px;
+    z-index: 1;
+}
+
+.dropwrap:hover  .dropwrap-content {
+    display: block !important;
+}
+
 @layer components {
     .bttn{
         @apply rounded-xl bg-theme-purple text-white m-4 mx-auto hover:text-white hover:bg-purple-900 p-1 ;
     }
+    .bttn-blue{
+        @apply rounded-xl bg-theme-blue m-4 mx-auto hover:text-white hover:bg-purple-900 p-1 ;
+    }
+
+    .bttn-red{
+        @apply rounded-xl bg-red-500 m-4 mx-auto hover:text-white hover:bg-red-200 p-1 ;
+    }
+
 }
 
 
@@ -93,6 +128,7 @@ body{
         max-width: 50vw;
         min-height: 20vh;
     }
+
 
 }
 

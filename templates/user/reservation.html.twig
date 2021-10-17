@@ -3,7 +3,7 @@
 {% block title %}Reservation{% endblock %}
 
 {% block body %}
-    <div class="container  ">
+    <div class="container height-full">
         <h1 class="mx-auto text-center text-4xl p-4 text-theme-blue font-semibold">Liste de mes réservations</h1>
         {% for message in app.flashes('success') %}
                 {% include 'components/_alert_success.html.twig'%}

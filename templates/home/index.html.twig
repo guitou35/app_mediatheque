@@ -3,12 +3,13 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="w-9/12 m-auto">
         <h1 class="text-theme-blue font-bold text-center text-5xl p-3">La médiathèque de la Chapelle-Curreaux</h1>
 
-        <img src="{{ asset('images/image_accueil.jpeg') }}" alt="image accueil" style="max-width: 40vw " class="m-auto rounded-xl">
+        <img src="{{ asset('images/image_accueil.jpeg') }}" alt="image accueil" style="max-width: 40vw "
+             class="m-auto rounded-xl">
 
-        <p class="text-center m-auto"> Bienvenue sur l'application de la médiathèque de la Chapelle-Curreaux.
+        <p class="text-center m-auto  md:w-9/12"> Bienvenue sur l'application de la médiathèque de la Chapelle-Curreaux.
             Suite au mesure gouvernante par rapport au Covid-19, nous avons décidé de mettre en place un click end
             collect à nos adhérents
             pour leur permettre de continuer de lire des livres malgrès les conditions actuelles.
@@ -18,11 +19,15 @@
             l'équipe de la médiathèque de la Chapelle-Curreux est ravis de pouvoir continuer à vous faire profiter de
             nos différents livres et nous vous souhaitant une bonne journée.
         </p>
-        <div class="flex flex-row ">
-            <a class="style-none rounded-xl bg-theme-purple text-white mb-2 mx-auto hover:text-white hover:bg-purple-900 p-2"
-               href="{{ path('user_home') }}">Connexion</a>
-            <a class="style-none rounded-xl bg-theme-purple text-white mb-2 mx-auto hover:text-white hover:bg-purple-900 p-2"
-               href="{{ path('inscription') }}">inscription</a>
+        <div class="flex flex-row justify-center pb-3 ">
+            <div class="p-2">
+                <a class="style-none rounded-xl bg-theme-purple text-white mb-2 mx-auto hover:text-white hover:bg-purple-900 p-2"
+                   href="{{ path('user_home') }}">Connexion</a>
+            </div>
+            <div class="p-2">
+                <a class="style-none rounded-xl bg-theme-purple text-white mb-2 mx-auto hover:text-white hover:bg-purple-900 p-2"
+                   href="{{ path('inscription') }}">inscription</a>
+            </div>
         </div>
     </div>
 

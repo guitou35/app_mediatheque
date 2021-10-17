@@ -1,0 +1,70 @@
+<div class="items-center md:flex">
+    <div class="flex flex-col md:flex-row md:mx-6">
+        <a
+                class="my-1 text-gray-700  hover:text-indigo-500  md:mx-4 md:my-0"
+                href="{{ path('user_home') }}"
+        >Accueil</a
+        >
+        <a
+                class="my-1 text-gray-700  hover:text-indigo-500 md:mx-4 md:my-0"
+                href="{{ path('user_get_reservations') }}"
+        >Réservations</a
+        >
+        <a
+                class="my-1 text-gray-700 hover:text-indigo-500 md:mx-4 md:my-0"
+                href="#"
+        >Contact</a
+        >
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a
+                    class="my-1 text-gray-700 hover:text-indigo-500 md:mx-4 md:my-0"
+                    href="{{ path('app_logout') }}"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                     fill="currentColor">
+                    <path fill-rule="evenodd"
+                          d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
+                          clip-rule="evenodd"/>
+                </svg>
+            </a
+            >
+        {% else %}
+            <a
+                    class="my-1 text-gray-700 hover:text-indigo-500 md:mx-4 md:my-0"
+                    href="{{ path('app_login') }}"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                     fill="currentColor">
+                    <path fill-rule="evenodd"
+                          d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z"
+                          clip-rule="evenodd"/>
+                </svg>
+            </a
+            >
+        {% endif %}
+
+    </div>
+
+        <div class="flex justify-center md:block">
+            <a
+                    class="relative text-gray-700 hover:text-gray-600 hover:text-indigo-500 "
+                    href="user_get_reservations"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                </svg>
+
+                {% if app.session.get('countReservationsRetard') %}
+                    <span
+                            class="absolute top-0.5 left-1 p-1 text-xs bg-theme-purple rounded-full"
+                    >
+                            {{ app.session.get('countReservationsRetard') }}
+                            </span>
+                {% endif %}
+            </a>
+        </div>
+
+
+</div>

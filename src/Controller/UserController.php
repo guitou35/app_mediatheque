@@ -50,6 +50,15 @@ class UserController extends AbstractController
     public function index(LivreRepository $livreRepository, Request $request ): Response
     {
         $this->checkReservationDateService->updateReservation();
+        $personne = $this->security->getUser();
+
+        if ($this->security->isGranted('ROLE_ADMIN')){
+            $this->checkReservationDateService->countReservationRetard();
+
+        }else{
+            $this->checkReservationDateService->countReservationRetardByOne($personne);
+        }
+
         $data = new SearchData();
         $data->page = $request->get('page', 1);
         $form = $this->createForm(SearchType::class, $data);
@@ -103,7 +112,7 @@ class UserController extends AbstractController
     public function getReservation(ReservationRepository $reservationRepository)
     {
         if ($this->isGranted("ROLE_ADMIN")){
-            $reservations = $reservationRepository->findBy([],['DateRetour'=>'DESC']);
+            $reservations = $reservationRepository->findBy(['statut'=>'en-cours'],['DateRetour'=>'DESC']);
         }else{
             $reservations = $reservationRepository->findReservations($this->security->getUser()->getId());
         }

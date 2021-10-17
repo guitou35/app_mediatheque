@@ -3,9 +3,12 @@
 {% block title %}New Livre{% endblock %}
 
 {% block body %}
-    <h1>Create new Livre</h1>
+    <div class="container height-full">
+        <h1 class="mx-auto text-center text-4xl p-4 text-theme-blue font-semibold">Ajout Livre</h1>
+        <div class="md:w-2/4 mx-auto ">
+            {{ include('layout/_form.html.twig') }}
 
-    {{ include('layout/_form.html.twig') }}
-
-    <a href="{{ path('livre_index') }}">back to list</a>
+            <a href="{{ path('livre_index') }}">back to list</a>
+        </div>
+    </div>
 {% endblock %}

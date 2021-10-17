@@ -1,24 +1,45 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ path('home') }}">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
-                </li>
-            </ul>
+<header class="sticky top-0 z-10">
+    <nav class="bg-gray-200 shadow ">
+        <div
+                class="container px-6 py-3 mx-auto md:flex md:justify-between md:items-center"
+        >
+            <div class="flex items-center justify-between">
+
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <div class="text-xl font-bold text-gray-800 md:text-2xl hover:text-gray-700 ">
+                        Hello {{ app.user.nom }}</div>
+                {% else %}
+                    <div>
+                        <a
+                                class="text-xl font-bold text-gray-800 md:text-2xl hover:text-gray-700 "
+                                href="{{ path('home') }}"
+                        >Home </a>
+                    </div>
+                {% endif %}
+
+                <!-- Mobile menu button -->
+                <div class="flex md:hidden">
+                    <button
+                            type="button"
+                            class="text-gray-500  hover:text-gray-600  focus:outline-none focus:text-gray-600 "
+                            aria-label="toggle menu"
+                    >
+                        <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
+                            <path
+                                    fill-rule="evenodd"
+                                    d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
+                            ></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
+            {% if is_granted("ROLE_ADMIN") %}
+                {% include 'components/_admin_navbar.html.twig' %}
+            {% else %}
+                {% include 'components/_user_navbar.html.twig' %}
+            {% endif %}
         </div>
-    </div>
-</nav>
+    </nav>
+</header>
