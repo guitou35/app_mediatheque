@@ -3,11 +3,20 @@
 {% block title %}Edit Auteur{% endblock %}
 
 {% block body %}
-    <h1>Edit Auteur</h1>
+    <div class="container ">
+        <h1 class="mx-auto text-center text-4xl p-4 text-theme-blue font-semibold">Editer auteur</h1>
 
-    {{ include('layout/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('auteur_index') }}">back to list</a>
+        <div class="md:w-2/4 mx-auto ">
 
-    {{ include('admin/auteur/_delete_form.html.twig') }}
+            {{ include('layout/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+            <div class="flex flex-wrap flex-row items-center justify-center">
+                <div class="bttn-blue mx-1 ">
+                    <a href="{{ path('auteur_index') }}">Retour</a>
+                </div>
+                {{ include('admin/auteur/_delete_form.html.twig') }}
+            </div>
+
+        </div>
+    </div>
 {% endblock %}

@@ -35,9 +35,7 @@ class AdminController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+        return $this->redirectToRoute('admin_list_emprunt');
     }
 
     /**
@@ -48,7 +46,7 @@ class AdminController extends AbstractController
     {
         $personnes = $this->personneRepository->findBy([
             "compteActived" => false
-        ]);
+        ],['id'=>'DESC']);
         return $this->render('admin/validateUser.html.twig', [
             'personnes' => $personnes
         ]);
@@ -62,6 +60,9 @@ class AdminController extends AbstractController
         $personne = $this->personneRepository->find($id);
         $personne->setCompteActived(true);
         $this->getDoctrine()->getManager()->flush();
+        $nom = $personne->getNom();
+        $prenom = $personne->getPrenom();
+        $this->addFlash('success', "Vous venez de valider l'utilisateur $nom $prenom");
         return $this->redirectToRoute('admin_list_new_user');
     }
 
@@ -77,7 +78,7 @@ class AdminController extends AbstractController
             $dateRetour = new \DateTime();
             $diffDate = $reservation->getDateReservation()->diff($dateJourEmprunt);
 
-            if ($reservation->getDateEmprunt() === null && $diffDate->d < 3 && $reservation->getDateRetour() === null) {
+            if ($diffDate->days <= 3 ) {
                 $reservation->setDateEmprunt($dateJourEmprunt);
                 $reservation->setDateRetour($dateRetour->add(new \DateInterval('P21D')));
                 $reservation->setStatut('en-cours');
@@ -86,11 +87,12 @@ class AdminController extends AbstractController
                 $this->addFlash('success', "Le livre vient d'être emprunté");
 
               return  $this->redirectToRoute('user_get_reservations');
-            } else if ($reservation->getDateEmprunt() === null && $diffDate->d > 3 && $reservation->getDateRetour() === null) {
+            } else if ($diffDate->days > 3 ) {
                 $reservation->getLivre()->setStatut('dispo');
                 $reservation->setDateRetour(new \DateTime('now'));
+                $reservation->setStatut('done');
                 $em->flush();
-                $this->addFlash('notice', "Le délai pour retirer un livre a été dépassé");
+                $this->addFlash('error', "Le délai pour retirer un livre a été dépassé");
 
              return $this->redirectToRoute('user_get_reservations');
             }
@@ -117,7 +119,7 @@ class AdminController extends AbstractController
 
             $this->addFlash('success', "Vous venez de valider la réception d'un livre");
 
-            return  $this->redirectToRoute('user_get_reservations');
+            return  $this->redirectToRoute('admin_list_emprunt');
 
         }
         $this->addFlash('error', "Il y a eu une erreur sur la réservation");
@@ -143,10 +145,28 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+     * @return Response
+     * @Route("/list/all/reservations", name="admin_list_reservations")
+     */
     public function getReservations()
     {
+        $reservations = $this->reservationRepository->findBy([],['DateReservation' => 'DESC']);
 
-        return $this->render('user/reservation.html.twig',[
+        return $this->render('admin/livre/emprunt.html.twig',[
+            'reservations' => $reservations
+        ]);
+    }
+
+    /**
+     * @return Response
+     * @Route("/list/attente/reservations", name="admin_list_attente_reservations")
+     */
+    public function getReservationsAttente()
+    {
+        $reservations = $this->reservationRepository->findBy(['statut'=>'attente'],['DateReservation' => 'DESC']);
+
+        return $this->render('admin/livre/emprunt.html.twig',[
             'reservations' => $reservations
         ]);
     }

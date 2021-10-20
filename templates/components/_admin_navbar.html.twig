@@ -1,4 +1,4 @@
-<div class="items-center md:flex">
+<div class="items-center md:flex hidden md:block" id="menu-toggle">
     <div class="flex flex-col md:flex-row md:mx-6">
         <a
                 class="my-1 text-gray-700  hover:text-indigo-500  md:mx-4 md:my-0"
@@ -8,18 +8,9 @@
         <a
                 class="my-1 text-gray-700  hover:text-indigo-500 md:mx-4 md:my-0"
                 href="{{ path('admin_list_new_user') }}"
-        >Valider utilisateurs</a
+        >Liste users</a
         >
-        <a
-                class="my-1 text-gray-700  hover:text-indigo-500 md:mx-4 md:my-0"
-                href="{{ path('user_get_reservations') }}"
-        >Emprunt/Reception</a
-        >
-        <a
-                class="my-1 text-gray-700 hover:text-indigo-500 md:mx-4 md:my-0"
-                href="#"
-        >Contact</a
-        >
+        {% include 'components/_dropdown_reservations.html.twig' %}
         {% include 'components/_dropdown.html.twig' %}
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <a
@@ -54,7 +45,7 @@
     <div class="flex justify-center md:block">
         <a
                 class="relative text-gray-700 hover:text-gray-600 hover:text-indigo-500 "
-                href="user_get_reservations"
+                href="{{ path('admin_list_emprunt') }}"
         >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor">

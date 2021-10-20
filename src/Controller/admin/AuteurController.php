@@ -38,6 +38,10 @@ class AuteurController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($auteur);
             $entityManager->flush();
+            $nom = $auteur->getNom();
+            $prenom = $auteur->getPrenom();
+            $this->addFlash('success', "Vous venez d'ajouter l'auteur $nom $prenom");
+
 
             return $this->redirectToRoute('auteur_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -58,6 +62,9 @@ class AuteurController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $nom = $auteur->getNom();
+            $prenom = $auteur->getPrenom();
+            $this->addFlash('success', "Vous venez de modifier l'auteur $nom $prenom");
 
             return $this->redirectToRoute('auteur_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -76,6 +83,10 @@ class AuteurController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$auteur->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($auteur);
+            $nom = $auteur->getNom();
+            $prenom = $auteur->getPrenom();
+            $this->addFlash('success', "Vous venez de supprimer l'auteur $nom $prenom");
+
             $entityManager->flush();
         }
 

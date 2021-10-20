@@ -1,4 +1,4 @@
-<div class="items-center md:flex">
+<div class="items-center md:flex hidden md:block" id="menu-toggle">
     <div class="flex flex-col md:flex-row md:mx-6">
         <a
                 class="my-1 text-gray-700  hover:text-indigo-500  md:mx-4 md:my-0"
@@ -9,11 +9,6 @@
                 class="my-1 text-gray-700  hover:text-indigo-500 md:mx-4 md:my-0"
                 href="{{ path('user_get_reservations') }}"
         >Réservations</a
-        >
-        <a
-                class="my-1 text-gray-700 hover:text-indigo-500 md:mx-4 md:my-0"
-                href="#"
-        >Contact</a
         >
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <a
@@ -48,7 +43,7 @@
         <div class="flex justify-center md:block">
             <a
                     class="relative text-gray-700 hover:text-gray-600 hover:text-indigo-500 "
-                    href="user_get_reservations"
+                    href="{{ path('user_get_reservations') }}"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">

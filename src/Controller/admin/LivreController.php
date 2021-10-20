@@ -38,8 +38,11 @@ class LivreController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $livre->setStatut('dispo');
             $entityManager->persist($livre);
             $entityManager->flush();
+            $titre = $livre->getTitre();
+            $this->addFlash('success', "Vous venez d'ajouter le livre $titre");
 
             return $this->redirectToRoute('livre_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -60,7 +63,8 @@ class LivreController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-
+            $titre = $livre->getTitre();
+            $this->addFlash('success', "Vous venez de modifier le livre $titre");
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('livre_index', [], Response::HTTP_SEE_OTHER);
@@ -79,6 +83,8 @@ class LivreController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$livre->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $titre = $livre->getTitre();
+            $this->addFlash('success', "Vous venez de supprimer le livre $titre");
             $entityManager->remove($livre);
             $entityManager->flush();
         }

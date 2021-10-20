@@ -27,7 +27,9 @@ class ReservationRepository extends ServiceEntityRepository
             ->select('r','l','p')
             ->join('r.livre', 'l')
             ->join('r.personne','p')
-            ->andWhere('p.id = :id');
+            ->andWhere('p.id = :id')
+        ->orderBy('r.id','DESC')
+        ;
         $query->setParameter('id',$id);
 
         return $query->getQuery()->getResult();
@@ -41,7 +43,7 @@ class ReservationRepository extends ServiceEntityRepository
             ->join('r.livre', 'l')
             ->join('r.personne','p')
             ->andWhere("r.statut = 'en-cours' ")
-            ->orderBy('r.DateRetour','DESC');
+            ->orderBy('r.DateRetour','ASC');
 
         return $query->getQuery()->getResult();
     }
@@ -61,13 +63,14 @@ class ReservationRepository extends ServiceEntityRepository
 
     public function findReservationAttente()
     {
+
         $query = $this
             ->createQueryBuilder('r')
             ->select('r','l','p')
             ->join('r.livre', 'l')
             ->join('r.personne','p')
             ->andWhere("r.statut = 'attente' ")
-            ->andWhere('DATE_DIFF(CURRENT_DATE(), r.DateRetour) < 3')
+            ->andWhere('DATE_DIFF(CURRENT_DATE(), r.DateReservation) > 3')
         ;
              //$query= $this->_em->createQuery('select r, l,DATE_DIFF(CURRENT_DATE(), r.DateRetour) as jour from d ')
 

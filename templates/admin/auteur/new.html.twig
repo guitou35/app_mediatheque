@@ -3,12 +3,12 @@
 {% block title %}New Auteur{% endblock %}
 
 {% block body %}
-    <div class="container height-full">
-        <h1 class="mx-auto text-center text-4xl p-4 text-theme-blue font-semibold">Ajout auteur</h1>
+    <div class="container m-3">
+        <h1 class="mx-auto text-center text-4xl p-4 text-theme-blue font-semibold">Ajout d'un auteur</h1>
         <div class="md:w-2/4 mx-auto ">
             {{ include('layout/_form.html.twig') }}
 
-            <a href="{{ path('auteur_index') }}" class="bttn-blue">back to list</a>
+            <a href="{{ path('auteur_index') }}" class="bttn-blue">Retour</a>
         </div>
     </div>
 {% endblock %}

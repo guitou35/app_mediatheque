@@ -3,8 +3,10 @@
 {% block title %}livres{% endblock %}
 
 {% block body %}
-    <div class="container h-screen bg-gray-200 ">
+    <div class="container bg-gray-200 ">
         <h1 class="text-theme-blue font-bold text-center text-5xl p-3">Liste des livres de la bibliothèque</h1>
+        {% include 'components/_alerts.html.twig' %}
+
         <div class="md:flex flex-row js-filter">
             <div>
                 {% include 'livre/_filter.html.twig' with {form: form} only %}

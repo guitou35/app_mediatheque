@@ -7,11 +7,12 @@ use App\Entity\Personne;
 use App\Entity\Role;
 use App\Repository\AdresseRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class PersonneFixtures extends Fixture
+class PersonneFixtures extends Fixture implements FixtureGroupInterface
 {
     private $passwordHasher;
 
@@ -22,6 +23,7 @@ class PersonneFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+
         // set the password for the Admin
         $password = 'Admin';
 
@@ -33,12 +35,12 @@ class PersonneFixtures extends Fixture
 
         $admin = new Personne();
         $admin->setCompteActived(1);
-        $admin->setDateNaissance( '2021-10-03');
+        $admin->setDateNaissance( new \DateTime('now'));
         $admin->setNom('Admin');
-        $admin->setEmail('admin@local.fr');
+        $admin->setEmail('admin@test.fr');
         $admin->setPassword($password);
         $admin->setPrenom('admin');
-        $admin->setRoles(['ROLE_ADMIN']);
+        $admin->setRoles(['ROLE_SUPER_ADMIN']);
         $admin->setAdresse($adresse);
         $admin->setPassword($this->passwordHasher->hashPassword($admin, $password));
 
@@ -48,4 +50,8 @@ class PersonneFixtures extends Fixture
     }
 
 
+    public static function getGroups(): array
+    {
+        return ['admin'];
+    }
 }

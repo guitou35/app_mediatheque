@@ -3,33 +3,61 @@
 {% block title %}Genre index{% endblock %}
 
 {% block body %}
-    <h1>Genre index</h1>
+    <div class="container">
+        <h1 class="mx-auto text-center text-4xl p-4 text-theme-blue font-semibold">Gestion des catégories</h1>
+        {% include 'components/_alerts.html.twig' %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for genre in genres %}
-            <tr>
-                <td>{{ genre.id }}</td>
-                <td>{{ genre.nom }}</td>
-                <td>
-                    <a href="{{ path('genre_edit', {'id': genre.id}) }}">edit</a>
-                    {{ include('admin/genre/_delete_form.html.twig') }}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <p class="mx-auto p-3 text-center"><a href="{{ path('genre_new') }}" class="bttn">Ajouter</a></p>
 
-    <a href="{{ path('genre_new') }}">Create new</a>
+        <div class="flex md:flex-col text-left grid mb-2">
+            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50 text-theme-blue">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-center  font-medium   tracking-wider">
+                                    Id
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center  font-medium   tracking-wider">
+                                    Nom
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center font-medium  tracking-wider">
+                                    Management
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                            {% for genre in genres %}
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            {{ genre.id }}
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900 text-center">{{ genre.nom }}</div>
+                                    </td>
+                                    <td class=" whitespace-nowrap  ">
+                                        <div class="flex flex-wrap flex-row items-center justify-center">
+                                            <div class="bttn-blue mx-1 ">
+                                                <a href="{{ path('genre_edit', {'id': genre.id}) }}">Editer</a>
+                                            </div>
+                                            {{ include('admin/genre/_delete_form.html.twig') }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="5">Pas de données à afficher</td>
+                                </tr>
+                            {% endfor %}
+                            <!-- More people... -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

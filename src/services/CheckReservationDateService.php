@@ -35,14 +35,16 @@ class CheckReservationDateService
     public function updateReservation()
     {
         $reservations = $this->reservationRepository->findReservationAttente();
-
+      //  dd($reservations);
         if (count($reservations) > 0 ){
             foreach ($reservations as $reservation){
                 $reservation->setStatut('done');
                 $reservation->getLivre()->setStatut('dispo');
             }
             $this->entityManager->flush();
+            return true;
         }
+        return false;
     }
 
     public function countReservationRetardByOne(Personne $personne)
@@ -50,6 +52,7 @@ class CheckReservationDateService
         $session = $this->requestStack->getSession();
         $countReservations = count($this->reservationRepository->findEmpruntRetardPersonnee($personne));
         $session->set('countReservationsRetard',$countReservations);
+        return $countReservations;
     }
 
     public function countReservationRetard()
@@ -57,5 +60,6 @@ class CheckReservationDateService
         $session = $this->requestStack->getSession();
         $countReservations = count($this->reservationRepository->findEmpruntRetard(new \DateTime('now')));
         $session->set('countReservationsRetard',$countReservations);
+        return $countReservations;
     }
 }

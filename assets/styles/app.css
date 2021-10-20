@@ -56,7 +56,11 @@ a{
 
 .size-img{
     width: 250px;
-    height: 210px;
+
+}
+
+.size-description{
+    width: 230px;
 }
 
 /* form styles */
@@ -95,25 +99,20 @@ a{
 }
 
 .dropwrap-content {
-    display: none !important;
     position: absolute;
-    background-color: #eceaea;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 10px 14px;
     z-index: 1;
 }
 
-.dropwrap:hover  .dropwrap-content {
-    display: block !important;
-}
 
 @layer components {
     .bttn{
         @apply rounded-xl bg-theme-purple text-white m-4 mx-auto hover:text-white hover:bg-purple-900 p-1 ;
     }
     .bttn-blue{
-        @apply rounded-xl bg-theme-blue m-4 mx-auto hover:text-white hover:bg-purple-900 p-1 ;
+        @apply rounded-xl bg-theme-blue hover:text-white hover:bg-blue-200 p-1 ;
     }
 
     .bttn-red{

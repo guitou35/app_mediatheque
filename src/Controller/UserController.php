@@ -47,16 +47,25 @@ class UserController extends AbstractController
     /**
      * @Route("/", name="user_home")
      */
-    public function index(LivreRepository $livreRepository, Request $request ): Response
+    public function index(LivreRepository $livreRepository, Request $request): Response
     {
-        $this->checkReservationDateService->updateReservation();
+        $livreEnRetard = $this->checkReservationDateService->updateReservation();
+
+        if ($livreEnRetard) {
+            $this->addFlash('notice', "Des livres sont de nouveaux disponibles");
+        }
         $personne = $this->security->getUser();
+        $countReservations = "";
 
-        if ($this->security->isGranted('ROLE_ADMIN')){
-            $this->checkReservationDateService->countReservationRetard();
+        if ($this->security->isGranted('ROLE_ADMIN')) {
+            $countReservations = $this->checkReservationDateService->countReservationRetard();
 
-        }else{
-            $this->checkReservationDateService->countReservationRetardByOne($personne);
+        } else {
+            $countReservations = $this->checkReservationDateService->countReservationRetardByOne($personne);
+        }
+
+        if (!empty($countReservations)) {
+            $this->addFlash('notice', "Vous avez une notification");
         }
 
         $data = new SearchData();
@@ -67,18 +76,18 @@ class UserController extends AbstractController
 
         $livres = $livreRepository->searchLivre($data);
 
-        if($request->get('ajax')){
-            return  new JsonResponse([
-                'content' => $this->renderView('livre/_livres.html.twig',['livres' => $livres]),
-                'pagination' => $this->renderView('livre/_pagination.html.twig',['livres' => $livres]),
-                'pages'=> ceil($livres->getTotalItemCount() / $livres->getItemNumberPerPage()),
+        if ($request->get('ajax')) {
+            return new JsonResponse([
+                'content' => $this->renderView('livre/_livres.html.twig', ['livres' => $livres]),
+                'pagination' => $this->renderView('livre/_pagination.html.twig', ['livres' => $livres]),
+                'pages' => ceil($livres->getTotalItemCount() / $livres->getItemNumberPerPage()),
             ]);
         }
 
         return $this->render('user/index.html.twig', [
             'controller_name' => 'UserController',
-            'livres'=> $livres,
-            'form'=> $form->createView()
+            'livres' => $livres,
+            'form' => $form->createView()
         ]);
     }
 
@@ -97,6 +106,10 @@ class UserController extends AbstractController
         $reservation->setPersonne($user);
 
         $livre->setStatut('nodispo');
+        $titre = $livre->getTitre();
+
+        $this->addFlash('success', "Vous venez de réserver le livre $titre ");
+
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($reservation);
@@ -111,13 +124,10 @@ class UserController extends AbstractController
      */
     public function getReservation(ReservationRepository $reservationRepository)
     {
-        if ($this->isGranted("ROLE_ADMIN")){
-            $reservations = $reservationRepository->findBy(['statut'=>'en-cours'],['DateRetour'=>'DESC']);
-        }else{
-            $reservations = $reservationRepository->findReservations($this->security->getUser()->getId());
-        }
 
-        return $this->render('user/reservation.html.twig',[
+            $reservations = $reservationRepository->findReservations($this->security->getUser()->getId());
+
+        return $this->render('user/reservation.html.twig', [
             'reservations' => $reservations
         ]);
     }

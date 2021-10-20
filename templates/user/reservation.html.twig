@@ -3,20 +3,13 @@
 {% block title %}Reservation{% endblock %}
 
 {% block body %}
-    <div class="container height-full">
+    <div class="container ">
         <h1 class="mx-auto text-center text-4xl p-4 text-theme-blue font-semibold">Liste de mes réservations</h1>
-        {% for message in app.flashes('success') %}
-                {% include 'components/_alert_success.html.twig'%}
-        {% endfor %}
-        {% for message in app.flashes('notice') %}
-            {% include 'components/_alert_notice.html.twig'%}
-        {% endfor %}
-        {% for message in app.flashes('error') %}
-            {% include 'components/_alert_error.html.twig'%}
-        {% endfor %}
+
+        {% include 'components/_alerts.html.twig' %}
 
         {% if reservations %}
-            <div class="flex md:flex-col text-left grid">
+            <div class="flex md:flex-col text-left grid mb-4">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                         <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -50,7 +43,7 @@
                                             <div class="flex-shrink-0 h-10 w-10">
                                                 {% if reservation.livre.filename %}
                                                 <img class="h-10 w-10 rounded-xl"
-                                                     src="/images/livres/{{ livre.filename }}">
+                                                     src="/images/livres/{{ reservation.livre.filename }}">
                                                 {% else %}
                                                     <img class="h-10 w-10 rounded-xl"
                                                          src="/images/livres/empty_livre.jpg" alt="">

@@ -59,7 +59,7 @@ class LivreRepository extends ServiceEntityRepository
         return $this->paginator->paginate(
             $query,
             $data->page,
-            9
+            8
         );
     }
 

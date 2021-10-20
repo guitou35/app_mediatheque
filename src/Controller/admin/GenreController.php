@@ -38,6 +38,8 @@ class GenreController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($genre);
             $entityManager->flush();
+            $nom = $genre->getNom();
+            $this->addFlash('success', "Vous venez d'ajouter la catégorie $nom");
 
             return $this->redirectToRoute('genre_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -58,7 +60,8 @@ class GenreController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+            $nom = $genre->getNom();
+            $this->addFlash('success', "Vous venez de modifier la catégorie $nom");
             return $this->redirectToRoute('genre_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -76,7 +79,10 @@ class GenreController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$genre->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($genre);
+            $nom = $genre->getNom();
+            $this->addFlash('success', "Vous venez de supprimer la catégorie $nom");
             $entityManager->flush();
+
         }
 
         return $this->redirectToRoute('genre_index', [], Response::HTTP_SEE_OTHER);

@@ -1,17 +1,17 @@
-<div class=" border rounded-md md:flex flex-col shadow-xl bg-white m-3" id="livre-{{ livre.id }}">
+<div class=" border rounded-md md:flex flex-col shadow-xl bg-white w-1/2 lg:w-1/5 m-3" id="livre-{{ livre.id }}">
     {% if livre.filename %}
-        <div class="size-img"><img class="rounded-t-md size-img" src="/images/livres/{{ livre.filename }}"
+        <div class=" mx-auto"><img class="rounded-t-md" src="/images/livres/{{ livre.filename }}"
                                    alt="livre images"></div>
     {% else %}
-        <div ><img class=" size-img rounded-t-md" src="/images/livres/empty_livre.jpg" alt="livre images">
+        <div ><img class=" mx-auto rounded-t-md" src="/images/livres/empty_livre.jpg" alt="livre images">
         </div>
     {% endif %}
-    <div class="text-theme-blue text-lg font-semibold mx-auto px-2">{{ livre.titre }} </div>
-    <div class="text-theme-blue italic mx-auto p-2">{{ livre.auteur.nom }}</div>
-    <div class="text-xs font-extralight p-2"> {{ livre.dateParution }}</div>
+    <div class="text-theme-blue text-lg font-semibold mx-auto px-2 text-center">{{ livre.titre }} </div>
+    <div class="text-theme-blue italic mx-auto p-2 size-description text-center">{{ livre.auteur.nom }} {{ livre.auteur.prenom }}</div>
+    <div class="text-xs font-extralight p-2"> {{ livre.dateParution  | date("d/m/Y") }}</div>
     <div class="px-2">
         <hr>
-        <p> {{ livre.description }}
+        <p class="text-center"> {{ livre.description }}
         </p>
         <div> <span class="rounded-full text-xs font-extralight bg-theme-blue px-2">{{ livre.genre.nom }}</span></div>
     </div>

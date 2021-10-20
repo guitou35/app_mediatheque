@@ -33,9 +33,9 @@ class Livre
     private $titre;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Date
+     * @ORM\Column(type="date")
      * @Assert\NotBlank
+     *
      */
     private $dateParution;
 
@@ -109,12 +109,12 @@ class Livre
         return $this;
     }
 
-    public function getDateParution(): ?string
+    public function getDateParution(): ?\DateTimeInterface
     {
         return $this->dateParution;
     }
 
-    public function setDateParution(string $dateParution): self
+    public function setDateParution(\DateTimeInterface $dateParution): self
     {
         $this->dateParution = $dateParution;
 

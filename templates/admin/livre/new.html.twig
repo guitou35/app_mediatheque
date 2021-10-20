@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Livre{% endblock %}
+{% block title %}Nouveau Livre{% endblock %}
 
 {% block body %}
-    <div class="container height-full">
-        <h1 class="mx-auto text-center text-4xl p-4 text-theme-blue font-semibold">Ajout Livre</h1>
-        <div class="md:w-2/4 mx-auto ">
+    <div class="container ">
+        <h1 class="mx-auto text-center text-4xl p-4 text-theme-blue font-semibold">Formulaire d'ajout de livre</h1>
+        <div class="md:w-2/4 mx-auto mb-2 ">
             {{ include('layout/_form.html.twig') }}
 
-            <a href="{{ path('livre_index') }}">back to list</a>
+            <a href="{{ path('livre_index') }}" class="bttn-blue">Retour</a>
         </div>
     </div>
 {% endblock %}

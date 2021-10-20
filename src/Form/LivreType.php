@@ -8,6 +8,7 @@ use App\Entity\Livre;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -20,18 +21,21 @@ class LivreType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('dateParution')
+            ->add('dateParution',BirthdayType::class, [
+        'required' => true,
+        'format' => 'y-M-d'
+    ])
             ->add('imageFile',FileType::class,[
                 'required'=> false
             ])
             ->add('description', TextareaType::class)
-            ->add('statut', ChoiceType::class,[
+      /*      ->add('statut', ChoiceType::class,[
                 'choices'=>[
                     'disponible'=>  'dispo',
                     'reservé'=> 'reservé',
                     'non disponible'=> 'nodispo'
                 ]
-            ])
+            ]) */
             ->add('genre', EntityType::class,[
                 'class' => Genre::class,
                 'query_builder' => function (EntityRepository $er) {

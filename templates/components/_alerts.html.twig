@@ -1,0 +1,9 @@
+{% for message in app.flashes('success') %}
+    {% include 'components/_alert_success.html.twig' %}
+{% endfor %}
+        {% for message in app.flashes('notice') %}
+            {% include 'components/_alert_notice.html.twig' %}
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            {% include 'components/_alert_error.html.twig' %}
+        {% endfor %}

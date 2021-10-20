@@ -4,12 +4,16 @@
 
 {% block body %}
     <div class="container">
-        <h1 class="mx-auto text-center text-theme-blue font-semibold pt-4 text-4xl">Liste des nouvelles personnes inscrites</h1>
+        <h1 class="mx-auto text-center text-theme-blue font-semibold pt-4 text-4xl">Liste des nouvelles personnes
+            inscrites</h1>
 
-        {% for personne in personnes %}
-            {% include 'components/_card_personne.html.twig' %}
-        {% endfor %}
+        {% include 'components/_alerts.html.twig' %}
 
+        <div class="md:flex flex-row flex-wrap grid lg:grids-cols-3 gap-4 grids-cols-2 justify-center js-filter-content">
+            {% for personne in personnes %}
+                {% include 'components/_card_personne.html.twig' %}
+            {% endfor %}
+        </div>
     </div>
 
 {% endblock %}
