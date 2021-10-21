@@ -20,7 +20,6 @@ final class Version20211011094813 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP TABLE genre_livre');
         $this->addSql('ALTER TABLE personne DROP date_naissance');
     }
 

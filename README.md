@@ -2,7 +2,7 @@
 
 ## Préalable
 Ce projet nécessite les logiciels suivants sur votre ordinateur : 
-``composer, npm et Symfony CLI`` ainsi que d'avoir une base de données local.
+``composer, npm, Symfony CLI et Docker`` ainsi que d'avoir une base de données local.
 
 Liens de téléchargement :
 
@@ -10,34 +10,45 @@ Liens de téléchargement :
 - https://getcomposer.org/download/
 - https://nodejs.org/en/download/
 
+## Création d'un compte admin
+Opération à réaliser avant l'installation en local
+
+allez dans ``src/DataFixtures/PersonneFixtures.php`` puis remplir la ligne 27  ``$password =``
+
+
 ## Installation en local
 
-1 - A la racine du projet veuillez remplir le fichier ``.env``
-en remplaçant la variable ``DATABASE_URL`` par celle de votre BDD
+1 - A la racine du projet excécuter la commande suivante : 
+````bash
+docker-compose up -d
+````
 
-2 - Pour une première installation veuillez lancer la commande dans le terminal: 
+2 - Lancer le serveur avec la commande
+````bash
+symfony serve -d
+````
+L'application est maintenant accéssible à l'adresse http://localhost:8000 généralement
+
+3- Générer la BDD et les données de test avec les commandes
+````bash
+symfony console doctrine:database:create
+symfony console doctrine:migrations:migrate
+symfony console doctrine:fixtures:load
+````
+
+4 - Pour une première installation veuillez lancer la commande dans le terminal: 
 ```bash
 composer install
 ```
-Cette commande va ainsi installer les dépendances du projet ainsi que de lancer les 
-``migrations`` et la compilation des assets avec ``npm``
+Cette commande va ainsi installer les dépendances du projet 
 
-3 - Lancer le serveur avec la commande
+5- lancer la commande pour charger les fichier assets webpack-encore
 ````bash
-symfony server:start
+npm install
+npm run build
 ````
- L'application est maintenant accéssible à l'adresse http://localhost:8000
 
-## Création d'un compte admin
-allez dans ``src/DataFixtures/PersonneFixtures.php`` puis remplir la ligne 27  ``$password =``
-Puis lancer la commande : 
-````bash
-php bin/console doctrine:fixtures:load --group=admin
-````
 
 ## Création d'un jeu de données pour les tests
-Lancer la commande suivante : 
-````bash
-php bin/console doctrine:fixtures:load --append --group=populate
-````
+La création du jeu de donnée se fait lors de la première installation
  
