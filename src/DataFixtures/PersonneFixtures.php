@@ -25,7 +25,7 @@ class PersonneFixtures extends Fixture implements FixtureGroupInterface
     {
 
         // set the password for the Admin
-        $password = 'Admin';
+        $password = 'Admin1234';
 
         $adresse = new Adresse();
         $adresse->setCodePostal(9000);
@@ -37,7 +37,7 @@ class PersonneFixtures extends Fixture implements FixtureGroupInterface
         $admin->setCompteActived(1);
         $admin->setDateNaissance( new \DateTime('now'));
         $admin->setNom('Admin');
-        $admin->setEmail('admin@test.fr');
+        $admin->setEmail('admin@admin.fr');
         $admin->setPassword($password);
         $admin->setPrenom('admin');
         $admin->setRoles(['ROLE_SUPER_ADMIN']);
