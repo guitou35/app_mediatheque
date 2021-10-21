@@ -7,7 +7,7 @@
 
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <div class="text-xl font-bold text-gray-800 md:text-2xl hover:text-gray-700 ">
-                        Hello {{ app.user.nom }}</div>
+                        Hello {{ app.user.prenom }} {{ app.user.nom }}</div>
                 {% else %}
                     <div>
                         <a
