@@ -92,6 +92,7 @@
             "@auto-scripts"
         ],
         "compile": [
+            "npm install",
             "npm run build",
             "php bin/console doctrine:migrations:migrate"
         ]
