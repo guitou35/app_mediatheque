@@ -2,7 +2,7 @@
 
 ## Préalable
 Ce projet nécessite les logiciels suivants sur votre ordinateur : 
-``composer, npm, Symfony CLI et Docker`` ainsi que d'avoir une base de données local.
+``composer, npm, Symfony CLI et Docker``. Docker se charge de charger la base de données
 
 Liens de téléchargement :
 
@@ -22,6 +22,7 @@ allez dans ``src/DataFixtures/PersonneFixtures.php`` puis remplir la ligne 27  `
 ````bash
 docker-compose up -d
 ````
+Cette commande va charger la base de données dans le container docker
 
 2 - Lancer le serveur avec la commande
 ````bash
