@@ -18,9 +18,9 @@
     "scripts": {
         "dev-server": "encore dev-server",
         "dev": "encore dev",
-        "watch": "webpack -d --watch --config ./resources/webpack/webpack.config.js --display-error-details",
-        "heroku-postbuild": "webpack -p --config ./resources/webpack/webpack.config.js",
-        "build": "webpack -p --config ./resources/webpack/webpack.config.js --display-error-details"
+        "watch": "encore dev --watch",
+        "build": "encore production --progress",
+        "heroku-postbuild": "encore production --progress"
     },
     "dependencies": {
         "flip-toolkit": "^7.0.13"
@@ -29,5 +29,4 @@
         "node": "14.18.0",
         "npm" : "6.x"
     }
-
 }
